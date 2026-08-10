@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LMS Academy</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand" onclick="showHome()">LMS<span>Academy</span></div>
+    <nav>
+      <button class="nav-btn" onclick="showHome()">Home</button>
+      <button class="nav-btn" onclick="showCourses()">Courses</button>
+      <button class="nav-btn auth-only" onclick="showDashboard()">My Learning</button>
+      <button class="nav-btn admin-only hidden" onclick="showAdmin()">Admin</button>
+      <button class="nav-btn" id="loginNav" onclick="openAuth('login')">Login</button>
+      <button class="nav-btn hidden" id="logoutNav" onclick="logout()">Logout</button>
+    </nav>
+  </header>
+
+  <main id="app"></main>
+
+  <footer>
+    <div><strong>LMS Academy</strong> — Learning Management System demo for AWS ECS deployment.</div>
+  </footer>
+
+  <div id="toast"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
