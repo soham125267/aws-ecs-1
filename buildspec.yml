@@ -5,7 +5,6 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 975049967009.dkr.ecr.ap-south-1.amazonaws.com
-
       - REPOSITORY_URI_BACKEND=975049967009.dkr.ecr.ap-south-1.amazonaws.com/lms-backend
       - REPOSITORY_URI_FRONTEND=975049967009.dkr.ecr.ap-south-1.amazonaws.com/lms-frontend
       - IMAGE_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
@@ -15,7 +14,6 @@ phases:
       - echo Build started on `date`
       - echo Building backend Docker image...
       - docker build -t $REPOSITORY_URI_BACKEND:$IMAGE_TAG ./backend
-
       - echo Building frontend Docker image...
       - docker build -t $REPOSITORY_URI_FRONTEND:$IMAGE_TAG ./frontend
 
@@ -23,8 +21,12 @@ phases:
     commands:
       - echo Pushing backend image...
       - docker push $REPOSITORY_URI_BACKEND:$IMAGE_TAG
-
       - echo Pushing frontend image...
       - docker push $REPOSITORY_URI_FRONTEND:$IMAGE_TAG
-
+      - echo Creating imagedefinitions.json...
+      - printf '[{"name":"backend","imageUri":"%s"},{"name":"frontend","imageUri":"%s"}]' "$REPOSITORY_URI_BACKEND:$IMAGE_TAG" "$REPOSITORY_URI_FRONTEND:$IMAGE_TAG" > imagedefinitions.json
       - echo Build completed on `date`
+
+artifacts:
+  files:
+    - imagedefinitions.json
