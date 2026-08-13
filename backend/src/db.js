@@ -1,7 +1,11 @@
 const { Pool } = require("pg");
 
+const databaseUrl =
+  process.env.DATABASE_URL ||
+  `postgresql://${encodeURIComponent(process.env.DB_USER)}:${encodeURIComponent(process.env.DB_PASSWORD)}@${process.env.DB_HOST}:${process.env.DB_PORT || 5432}/${process.env.DB_NAME}`;
+
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: databaseUrl,
   max: 10,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 5000
@@ -26,6 +30,7 @@ async function waitForDatabase(retries = 20) {
       await new Promise(resolve => setTimeout(resolve, 2000));
     }
   }
+
   throw new Error("Could not connect to PostgreSQL.");
 }
 
