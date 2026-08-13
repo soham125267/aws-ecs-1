@@ -6,7 +6,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 975049967009.dkr.ecr.us-east-1.amazonaws.com
       - REPOSITORY_URI_BACKEND=975049967009.dkr.ecr.us-east-1.amazonaws.com/lms-backend
-      - REPOSITORY_URI_FRONTEND=975049967009.dkr.ecr.us-east-1.amazonaws.com/lms-app
+      - REPOSITORY_URI_FRONTEND=975049967009.dkr.ecr.us-east-1.amazonaws.com/lms-frontend
       - IMAGE_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
 
   build:
