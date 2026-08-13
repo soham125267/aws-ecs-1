@@ -1,0 +1,6 @@
+[
+  {
+    "name": "frontend",
+    "imageUri": "975049967009.dkr.ecr.us-east-1.amazonaws.com/lms-frontend:latest"
+  }
+]
